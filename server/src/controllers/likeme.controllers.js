@@ -1,5 +1,5 @@
 const pool = require('../database/db')
-const {  addLike, } = require("../controllers/post")
+// const {  addLike, } = require("../controllers/post")
 // leer toda las tareas
 const getAllLikeme = async(req, res, next)=>{
    try{
@@ -60,10 +60,12 @@ const deleteLikeme = async  (req, res, next)=>{
 
 
 const updateLikeme = async (req, res, next) => {
-		const { id } = req.params;
+	
 		try {
-		  await addLike(id);
-		  res.send("¡Like agregado con éxito!");
+			const { id } = req.params;
+			const result = await pool.query("UPDATE posts SET likes = likes + 1 WHERE id = $1", [id]);
+		  res.send(result);
+		return result.rows
 		} catch (error){
 			next(error)
 		}

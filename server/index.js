@@ -8,7 +8,7 @@ const pool = require('../server/src/database/db')
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-const fs = require("fs");
+
 app.use(likemeRouter)
 
 app.use((err, req, res, next) => {
